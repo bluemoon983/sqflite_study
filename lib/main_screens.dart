@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_app/detail_view.dart';
+import 'package:my_flutter_app/sample.dart';
 
 class MainScreens extends StatefulWidget {
   const MainScreens({super.key});
@@ -9,6 +10,11 @@ class MainScreens extends StatefulWidget {
 }
 
 class _MainScreensState extends State<MainScreens> {
+  void createdRandomSample(){
+    Sample();
+  }
+
+  
   Widget _sampleOne(int index) {
     return GestureDetector(
       onTap: () {
@@ -59,6 +65,10 @@ class _MainScreensState extends State<MainScreens> {
           100,
           (index) => _sampleOne(index),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(    
+        onPressed: ,
+        child: const Icon(Icons.add),
       ),
     );
   }
