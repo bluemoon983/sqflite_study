@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_flutter_app/data.dart';
 import 'package:my_flutter_app/detail_view.dart';
 import 'package:my_flutter_app/sample.dart';
 
@@ -11,7 +12,7 @@ class MainScreens extends StatefulWidget {
 
 class _MainScreensState extends State<MainScreens> {
   void createdRandomSample(){
-    Sample();
+    Sample(createdAt: DateTime.now(), name: DataUtils.makeUUID(),value: DataUtils.randomValue(),);
   }
 
   
