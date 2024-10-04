@@ -12,7 +12,8 @@ class MainScreens extends StatefulWidget {
 
 class _MainScreensState extends State<MainScreens> {
   void createdRandomSample(){
-    Sample(createdAt: DateTime.now(), name: DataUtils.makeUUID(),value: DataUtils.randomValue(),);
+    var value = DataUtils.randomValue();
+    Sample(createdAt: DateTime.now(), name: DataUtils.makeUUID(), value: DataUtils.randomValue(), yn: value % 2 == 0, );
   }
 
   
