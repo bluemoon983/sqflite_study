@@ -22,28 +22,36 @@ class _DetailViewState extends State<DetailView> {
       body: Padding(
         padding: const EdgeInsets.all(15),
         child: FutureBuilder<Sample?>(
-            future: _loadSampleOne(),
-            builder: (context, snapshot) {
+          future: _loadSampleOne(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Center(
+                child: Text("Not Found Data by ${widget.sample.id}"),
+              );
+            }
+
+            if (snapshot.hasData) {
+              var data = snapshot.data!;
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    "name: 대상혁 ${widget.sample.name}",
+                    "name: 대상혁 ${data.name}",
                     style: const TextStyle(fontSize: 15),
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    'Y/N : GOAT ${widget.sample.yn}',
+                    'Y/N : GOAT ${data.yn}',
                     style: const TextStyle(fontSize: 15),
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    'value : 4 ${widget.sample.value}',
+                    'value : 4 ${data.value}',
                     style: const TextStyle(fontSize: 15),
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    "CreatedAt: ${widget.sample.createdAt}",
+                    "CreatedAt: ${data.createdAt}",
                     style: const TextStyle(fontSize: 15),
                   ),
                   const SizedBox(height: 10),
@@ -67,7 +75,11 @@ class _DetailViewState extends State<DetailView> {
                   ),
                 ],
               );
-            }),
+            } else {
+              return Container();
+            }
+          },
+        ),
       ),
     );
   }
