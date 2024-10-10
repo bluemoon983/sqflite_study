@@ -26,15 +26,18 @@ class SqlSampleCrud {
 
   static Future<Sample?> getSempleOneList(int id) async {
     var db = await SqlDatabase().database;
-    var result = await db.query(Sample.tableName,
-        columns: [
-          SampleFields.id,
-          SampleFields.name,
-          SampleFields.value,
-          SampleFields.yn,
-          SampleFields.createdAt,
-        ],
-        where: '${SampleFields.id} = $id');
+    var result = await db.query(
+      Sample.tableName,
+      columns: [
+        SampleFields.id,
+        SampleFields.name,
+        SampleFields.value,
+        SampleFields.yn,
+        SampleFields.createdAt,
+      ],
+      where: '${SampleFields.id} = ?',
+      whereArgs: [id],
+    );
 
     var list = result.map(
       (data) {
@@ -46,5 +49,15 @@ class SqlSampleCrud {
     } else {
       return null;
     }
+  }
+
+  static Future<int> update(Sample sample) async {
+    var db = await SqlDatabase().database;
+    return await db.update(
+      Sample.tableName,
+      sample.toJson(),
+      where: '${SampleFields.id} = ?',
+      whereArgs: [sample.id],
+    );
   }
 }

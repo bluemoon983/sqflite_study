@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_app/src/model/sample.dart';
 import 'package:my_flutter_app/src/repo/sql_sample_crud.dart';
+import 'package:my_flutter_app/src/util/data.dart';
 
 class DetailView extends StatefulWidget {
   final Sample sample;
@@ -13,6 +14,12 @@ class DetailView extends StatefulWidget {
 class _DetailViewState extends State<DetailView> {
   Future<Sample?> _loadSampleOne() async {
     return SqlSampleCrud.getSempleOneList(widget.sample.id!);
+  }
+
+  void update(Sample sample) async {
+    double value = Data.randomValue();
+    var updateSample = sample.clone(value: value, yn: value.toInt() % 2 == 0);
+    SqlSampleCrud.update(updateSample);
   }
 
   @override
@@ -58,7 +65,9 @@ class _DetailViewState extends State<DetailView> {
                   ElevatedButton(
                     style:
                         ElevatedButton.styleFrom(backgroundColor: Colors.black),
-                    onPressed: () {},
+                    onPressed: () {
+                      update(data);
+                    },
                     child: const Text(
                       'Update',
                       style: TextStyle(color: Colors.white),
