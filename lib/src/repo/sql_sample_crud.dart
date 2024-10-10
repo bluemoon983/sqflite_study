@@ -23,4 +23,28 @@ class SqlSampleCrud {
       },
     ).toList();
   }
+
+  static Future<Sample?> getSempleOneList(int id) async {
+    var db = await SqlDatabase().database;
+    var result = await db.query(Sample.tableName,
+        columns: [
+          SampleFields.id,
+          SampleFields.name,
+          SampleFields.value,
+          SampleFields.yn,
+          SampleFields.createdAt,
+        ],
+        where: '${SampleFields.id} = $id');
+
+    var list = result.map(
+      (data) {
+        return Sample.fromJson(data);
+      },
+    ).toList();
+    if (list.isNotEmpty) {
+      return list.first;
+    } else {
+      return null;
+    }
+  }
 }
