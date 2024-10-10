@@ -21,4 +21,30 @@ class Sample {
     required this.value,
     required this.createdAt,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      SampleFields.id: id,
+      SampleFields.name: name,
+      SampleFields.yn: yn ? 1 : 0,
+      SampleFields.value: value,
+      SampleFields.createdAt: createdAt.toIso8601String(),
+    };
+  }
+
+  Sample clone({
+    int? id,
+    String? name,
+    bool? yn,
+    double? value,
+    DateTime? createdAt,
+  }) {
+    return Sample(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      yn: yn ?? this.yn,
+      value: value ?? this.value,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_app/src/detail_view.dart';
 import 'package:my_flutter_app/src/model/sample.dart';
-import 'package:my_flutter_app/src/repo/sql_database.dart';
+import 'package:my_flutter_app/src/repo/sql_sample_crud.dart';
 import 'package:my_flutter_app/src/util/data.dart';
 
 class MainScreens extends StatefulWidget {
@@ -12,7 +12,7 @@ class MainScreens extends StatefulWidget {
 }
 
 class _MainScreensState extends State<MainScreens> {
-  void createdRandomSample() {
+  void createdRandomSample() async {
     var value = Data.randomValue();
     var sample = Sample(
       createdAt: DateTime.now(),
@@ -21,9 +21,11 @@ class _MainScreensState extends State<MainScreens> {
       yn: value % 2 == 0,
     );
 
-    SqlDatabase.instance;
-    SqlDatabase();
+    await SqlSampleCrud.create(sample);
+    update();
   }
+
+  void update() => setState(() {});
 
   Widget _sampleOne(int index) {
     return GestureDetector(
@@ -66,14 +68,34 @@ class _MainScreensState extends State<MainScreens> {
     );
   }
 
+  Future<List<Sample>> _loadSampleList() async {
+    return [];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("SQFlite Sample"),
       ),
-      body: ListView(
-        children: List.generate(100, (index) => _sampleOne(index)),
+      body: FutureBuilder<List<Sample>>(
+        future: _loadSampleList(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return const Center(
+              child: Text('Not Support SQFlite'),
+            );
+          }
+          if (snapshot.hasData) {
+            return ListView(
+              children: List.generate(100, (index) => _sampleOne(index)),
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: createdRandomSample,

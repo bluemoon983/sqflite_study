@@ -15,6 +15,12 @@ class SqlDatabase {
     return instance;
   }
 
+  Future<Database> get database async {
+    if (_database != null) return _database!;
+    await _initDatabase();
+    return _database!;
+  }
+
   Future<void> _initDatabase() async {
     var dataBasePath = await getDatabasesPath();
     String path = join(dataBasePath, 'sample.db');
