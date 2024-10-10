@@ -1,3 +1,4 @@
+import 'package:my_flutter_app/src/model/sample.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -22,13 +23,17 @@ class SqlDatabase {
 
   void _databaseCreate(Database db, int version) async {
     await db.execute('''
-      create table sample(
-        _id integer primary key autoincrement,
-        name text not null,
-        yn integer not null,
-        value double not null,
-        createdAt text not null,
+      create table ${Sample.tableName}(
+        ${SampleFields.id} integer primary key autoincrement,
+        ${SampleFields.name} text not null,
+        ${SampleFields.yn} integer not null,
+        ${SampleFields.value} double not null,
+        ${SampleFields.createdAt} text not null,
       )
     ''');
+  }
+
+  void closeDataBase() async {
+    if (_database != null) await _database!.close();
   }
 }
