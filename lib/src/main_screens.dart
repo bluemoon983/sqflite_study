@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_app/src/detail_view.dart';
+import 'package:my_flutter_app/src/model/sample.dart';
+import 'package:my_flutter_app/src/repo/sql_database.dart';
+import 'package:my_flutter_app/src/util/data.dart';
 
 class MainScreens extends StatefulWidget {
   const MainScreens({super.key});
@@ -9,7 +12,18 @@ class MainScreens extends StatefulWidget {
 }
 
 class _MainScreensState extends State<MainScreens> {
-  void createdRandomSample() {}
+  void createdRandomSample() {
+    var value = Data.randomValue();
+    var sample = Sample(
+      createdAt: DateTime.now(),
+      name: Data.makeUUID(),
+      value: value,
+      yn: value % 2 == 0,
+    );
+
+    SqlDatabase.instance;
+    SqlDatabase();
+  }
 
   Widget _sampleOne(int index) {
     return GestureDetector(
