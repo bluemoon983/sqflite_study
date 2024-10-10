@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_app/src/main_screens.dart';
+import 'package:my_flutter_app/src/repo/sql_database.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SqlDatabase();
   runApp(const App());
 }
 
@@ -10,8 +13,12 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MainScreens(),
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primaryColor: Colors.blue,
+      ),
+      home: const MainScreens(),
     );
   }
 }
