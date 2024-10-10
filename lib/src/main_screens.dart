@@ -1,57 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:my_flutter_app/data.dart';
-import 'package:my_flutter_app/detail_view.dart';
-import 'package:my_flutter_app/sample.dart';
 
-class MainScreens extends StatefulWidget {
+class MainScreens extends StatelessWidget {
   const MainScreens({super.key});
 
-  @override
-  State<MainScreens> createState() => _MainScreensState();
-}
-
-class _MainScreensState extends State<MainScreens> {
-  void createdRandomSample(){
-    var value = DataUtils.randomValue();
-    Sample(createdAt: DateTime.now(), name: DataUtils.makeUUID(), value: DataUtils.randomValue(), yn: value % 2 == 0, );
-  }
-
-  
   Widget _sampleOne(int index) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => DetailView(sample: index)));
-      },
-      child: Container(
-        padding: const EdgeInsets.all(22),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Row(
-              children: [
-                Container(
-                  width: 10,
-                  height: 10,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.red,
-                  ),
-                ),
-                const SizedBox(width: 7),
-                Text("그를 숭배하야만 해-#$index"),
-              ],
-            ),
-            const SizedBox(height: 7),
-            Text(
-              DateTime.now().toIso8601String(),
-              style: const TextStyle(
-                fontSize: 12,
-                color: Colors.grey,
+    return Container(
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 10,
+                height: 10,
+                decoration: const BoxDecoration(
+                    shape: BoxShape.circle, color: Colors.green),
               ),
-            ),
-          ],
-        ),
+              Text('제길 또 대상혁야 나는 숭배해야만 해 #$index'),
+            ],
+          ),
+          const SizedBox(height: 7),
+        ],
       ),
     );
   }
@@ -60,18 +28,10 @@ class _MainScreensState extends State<MainScreens> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('sqflite Sample'),
+        title: const Text("SQFlite Sample"),
       ),
-      body: ListView(
-        children: List.generate(
-          100,
-          (index) => _sampleOne(index),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(    
-        onPressed: ,
-        child: const Icon(Icons.add),
-      ),
+      body:
+          ListView(children: List.generate(100, (index) => _sampleOne(index))),
     );
   }
 }
