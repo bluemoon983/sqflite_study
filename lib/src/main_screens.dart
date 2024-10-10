@@ -27,11 +27,13 @@ class _MainScreensState extends State<MainScreens> {
 
   void update() => setState(() {});
 
-  Widget _sampleOne(int index) {
+  Widget _sampleOne(Sample sample) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => DetailView(sample: index)));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DetailView(sample: sample)));
       },
       child: Container(
         padding: const EdgeInsets.all(22),
@@ -43,20 +45,20 @@ class _MainScreensState extends State<MainScreens> {
                 Container(
                   width: 10,
                   height: 10,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.red,
+                    color: sample.yn ? Colors.green : Colors.red,
                   ),
                 ),
                 const SizedBox(
                   width: 7,
                 ),
-                Text('제길 또 대상혁야 나는 숭배해야만 해 #$index'),
+                Text(sample.name),
               ],
             ),
             const SizedBox(height: 7),
             Text(
-              DateTime.now().toIso8601String(),
+              sample.createdAt.toIso8601String(),
               style: const TextStyle(
                 fontSize: 12,
                 color: Colors.grey,
@@ -69,7 +71,7 @@ class _MainScreensState extends State<MainScreens> {
   }
 
   Future<List<Sample>> _loadSampleList() async {
-    return [];
+    return await SqlSampleCrud.getList();
   }
 
   @override
@@ -82,13 +84,16 @@ class _MainScreensState extends State<MainScreens> {
         future: _loadSampleList(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return const Center(
-              child: Text('Not Support SQFlite'),
+            // 오류 발생 시 오류 메시지를 화면에 출력
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
             );
           }
           if (snapshot.hasData) {
+            var datas = snapshot.data;
             return ListView(
-              children: List.generate(100, (index) => _sampleOne(index)),
+              children: List.generate(
+                  datas!.length, (index) => _sampleOne(datas[index])),
             );
           } else {
             return const Center(

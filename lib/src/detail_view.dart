@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:my_flutter_app/src/model/sample.dart';
 
 class DetailView extends StatefulWidget {
-  final int sample;
+  final Sample sample;
   const DetailView({super.key, required this.sample});
 
   @override

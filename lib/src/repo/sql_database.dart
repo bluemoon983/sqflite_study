@@ -34,7 +34,7 @@ class SqlDatabase {
         ${SampleFields.name} text not null,
         ${SampleFields.yn} integer not null,
         ${SampleFields.value} double not null,
-        ${SampleFields.createdAt} text not null,
+        ${SampleFields.createdAt} text not null
       )
     ''');
   }

@@ -7,4 +7,20 @@ class SqlSampleCrud {
     var id = await db.insert(Sample.tableName, sample.toJson());
     return sample.clone(id: id);
   }
+
+  static Future<List<Sample>> getList() async {
+    var db = await SqlDatabase().database;
+    var result = await db.query(Sample.tableName, columns: [
+      SampleFields.id,
+      SampleFields.name,
+      SampleFields.yn,
+      SampleFields.createdAt,
+    ]);
+
+    return result.map(
+      (data) {
+        return Sample.fromJson(data);
+      },
+    ).toList();
+  }
 }

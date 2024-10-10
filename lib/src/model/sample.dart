@@ -32,6 +32,22 @@ class Sample {
     };
   }
 
+  factory Sample.fromJson(Map<String, dynamic> json) {
+    return Sample(
+      id: json[SampleFields.id] as int?,
+      name: json[SampleFields.name] == null
+          ? ''
+          : json[SampleFields.name] as String,
+      yn: json[SampleFields.yn] == null ? true : json[SampleFields.yn] == 1,
+      value: json[SampleFields.value] == null
+          ? 0
+          : json[SampleFields.value] as double,
+      createdAt: json[SampleFields.createdAt] == null
+          ? DateTime.now()
+          : DateTime.parse(json[SampleFields.createdAt]),
+    );
+  }
+
   Sample clone({
     int? id,
     String? name,
