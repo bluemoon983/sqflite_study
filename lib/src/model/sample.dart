@@ -6,7 +6,7 @@ class Sample {
   final DateTime createdAt;
 
   const Sample({
-    required this.id,
+    this.id,
     required this.name,
     required this.yn,
     required this.value,
