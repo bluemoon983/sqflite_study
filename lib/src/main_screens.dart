@@ -9,6 +9,8 @@ class MainScreens extends StatefulWidget {
 }
 
 class _MainScreensState extends State<MainScreens> {
+  void createdRandomSample() {}
+
   Widget _sampleOne(int index) {
     return GestureDetector(
       onTap: () {
@@ -58,6 +60,14 @@ class _MainScreensState extends State<MainScreens> {
       ),
       body: ListView(
         children: List.generate(100, (index) => _sampleOne(index)),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: createdRandomSample,
+        backgroundColor: Colors.white,
+        child: const Icon(
+          Icons.add,
+          color: Color.fromARGB(255, 243, 221, 20),
+        ),
       ),
     );
   }
