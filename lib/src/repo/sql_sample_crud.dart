@@ -60,4 +60,10 @@ class SqlSampleCrud {
       whereArgs: [sample.id],
     );
   }
+
+  static Future<int> delete(int id) async {
+    var db = await SqlDatabase().database;
+    return await db.delete(Sample.tableName,
+        where: '${SampleFields.id} = ? ', whereArgs: [id]);
+  }
 }

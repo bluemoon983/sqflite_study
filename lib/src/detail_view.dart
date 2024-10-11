@@ -23,6 +23,11 @@ class _DetailViewState extends State<DetailView> {
     setState(() {});
   }
 
+  void delet(Sample sample) async {
+    await SqlSampleCrud.delete(sample.id!);
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,7 +82,9 @@ class _DetailViewState extends State<DetailView> {
                   ElevatedButton(
                     style:
                         ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                    onPressed: () {},
+                    onPressed: () {
+                      delet(data);
+                    },
                     child: const Text(
                       'Delete',
                       style: TextStyle(color: Colors.white),

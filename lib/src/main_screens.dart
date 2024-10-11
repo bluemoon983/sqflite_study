@@ -29,11 +29,14 @@ class _MainScreensState extends State<MainScreens> {
 
   Widget _sampleOne(Sample sample) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => DetailView(sample: sample)));
+      onTap: () async {
+        await Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailView(sample: sample),
+          ),
+        );
+        update();
       },
       child: Container(
         padding: const EdgeInsets.all(22),
