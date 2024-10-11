@@ -19,7 +19,8 @@ class _DetailViewState extends State<DetailView> {
   void update(Sample sample) async {
     double value = Data.randomValue();
     var updateSample = sample.clone(value: value, yn: value.toInt() % 2 == 0);
-    SqlSampleCrud.update(updateSample);
+    await SqlSampleCrud.update(updateSample);
+    setState(() {});
   }
 
   @override
